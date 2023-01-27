@@ -24,3 +24,4 @@ txt_age = ''
 txt_finalwin = 'Результаты'
 txt_index = 'Индекс Руфье:'
 txt_workheart = 'Работоспособность сердца:'
+ 

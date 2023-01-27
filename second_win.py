@@ -1,9 +1,9 @@
 from PyQt5.QtCore import Qt, QTimer, QTime
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QLineEdit
 from PyQt5.QtGui import QFont
-from time import time, sleep
-from instr import *
+from my_app import Experiment
 from final_win import FinalWin
+from instr import *
 
 
 class TestWin(QWidget):
@@ -28,14 +28,14 @@ class TestWin(QWidget):
 
         # Создание кнопок и полей для ввода
         self.btn_next = QPushButton("Отправить результаты")
-        self.hintname = QLineEdit()
-        self.hintage = QLineEdit()
-        self.test1 = QPushButton("Начать первый тест")
-        self.test2 = QPushButton("Начать делать приседания")
-        self.test3 = QPushButton("Начать финальный тест")
-        self.result1 = QLineEdit("0")
-        self.result2 = QLineEdit("0")
-        self.result3 = QLineEdit("0")
+        self.line_name = QLineEdit("Ф.И.О.")
+        self.line_age = QLineEdit("0")
+        self.btn_test1 = QPushButton("Начать первый тест")
+        self.btn_test2 = QPushButton("Начать делать приседания")
+        self.btn_test3 = QPushButton("Начать финальный тест")
+        self.line_test1 = QLineEdit("0")
+        self.line_test2 = QLineEdit("0")
+        self.line_test3 = QLineEdit("0")
         self.text_timer = QLabel("00:00:00")
         self.text_timer.setFont(QFont("Times", 36, QFont.Bold))
         self.text_timer.setStyleSheet("color: rgb(17, 33, 105)")
@@ -43,28 +43,28 @@ class TestWin(QWidget):
         # Добавление кнопок, полей и текста
         # Имя пользователя
         self.l_line.addWidget(QLabel(txt_hintname), alignment=Qt.AlignLeft)
-        self.l_line.addWidget(self.hintname, alignment=Qt.AlignLeft)
+        self.l_line.addWidget(self.line_name, alignment=Qt.AlignLeft)
 
         # Возраст пользователя
         self.l_line.addWidget(QLabel(txt_hintage), alignment=Qt.AlignLeft)
-        self.l_line.addWidget(self.hintage, alignment=Qt.AlignLeft)
+        self.l_line.addWidget(self.line_age, alignment=Qt.AlignLeft)
 
         # Первый тест
         self.l_line.addWidget(QLabel(txt_test1), alignment=Qt.AlignLeft)
-        self.l_line.addWidget(self.test1, alignment=Qt.AlignLeft)
-        self.l_line.addWidget(self.result1, alignment=Qt.AlignLeft)
+        self.l_line.addWidget(self.btn_test1, alignment=Qt.AlignLeft)
+        self.l_line.addWidget(self.line_test1, alignment=Qt.AlignLeft)
 
         # Второй тест
         self.l_line.addWidget(QLabel(txt_test2), alignment=Qt.AlignLeft)
-        self.l_line.addWidget(self.test2, alignment=Qt.AlignLeft)
+        self.l_line.addWidget(self.btn_test2, alignment=Qt.AlignLeft)
 
         # Третий тест
         self.l_line.addWidget(QLabel(txt_test3), alignment=Qt.AlignLeft)
-        self.l_line.addWidget(self.test3, alignment=Qt.AlignLeft)
+        self.l_line.addWidget(self.btn_test3, alignment=Qt.AlignLeft)
 
         # Ввод пользоватетем результатов
-        self.l_line.addWidget(self.result2, alignment=Qt.AlignLeft)
-        self.l_line.addWidget(self.result3, alignment=Qt.AlignLeft)
+        self.l_line.addWidget(self.line_test2, alignment=Qt.AlignLeft)
+        self.l_line.addWidget(self.line_test3, alignment=Qt.AlignLeft)
 
         # Кнопка для перехода на следующее окно.
         self.l_line.addWidget(self.btn_next, alignment=Qt.AlignCenter)
@@ -79,13 +79,9 @@ class TestWin(QWidget):
 
     def connects(self):
         self.btn_next.clicked.connect(self.next_click)
-        self.test1.clicked.connect(self.timer_event1)
-        self.test2.clicked.connect(self.timer_sits)
-        self.test3.clicked.connect(self.timer_event3)
-
-    def next_click(self):
-        self.hide()
-        self.fw = FinalWin()  # Создание следующего окна
+        self.btn_test1.clicked.connect(self.timer_event1)
+        self.btn_test2.clicked.connect(self.timer_sits)
+        self.btn_test3.clicked.connect(self.timer_event3)
 
     def timer_event1(self):
         global time
@@ -112,6 +108,12 @@ class TestWin(QWidget):
 
     def timer_sits():
         pass
+
+    def next_click(self):
+        self.hide()
+        self.exp = Experiment(self.line_age.text(), self.line_test1.text(),
+                              self.line_test2.text(), self.line_test3.text())
+        self.fw = FinalWin(self.exp)  # Создание следующего окна
 
 def debug():
     debug_app = QApplication([])

@@ -115,6 +115,7 @@ class TestWin(QWidget):
                               self.line_test2.text(), self.line_test3.text())
         self.fw = FinalWin(self.exp)  # Создание следующего окна
 
+
 def debug():
     debug_app = QApplication([])
     debug_win = TestWin()

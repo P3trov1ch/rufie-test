@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLay
 from PyQt5.QtGui import QFont
 from time import time, sleep
 from instr import *
-from final_win import FinalWin
+# from final_win import FinalWin
 
 
 class TestWin(QWidget):
@@ -92,14 +92,14 @@ class TestWin(QWidget):
         time = QTime(0, 0, 15)
         self.timer = QTimer()
         self.timer.timeout.connect(self.timer1Event)
-        self.timer.start(1000)
+        self.timer.start(500)
     
     def timer1Event(self):
         global time
         time = time.addSecs(-1)
         self.text_timer.setText(time.toString("hh:mm:ss"))
-        self.timer.setFont(QFont("Times", 36, QFont.Bold))
-        self.timer.setStyleSheet("color: rgb(17, 33, 105)")
+        self.text_timer.setFont(QFont("Times", 36, QFont.Bold))
+        self.text_timer.setStyleSheet("color: rgb(17, 33, 105)")
         if time.toString("hh:mm:ss") == "00:00:00":
             self.timer.stop()
 
@@ -108,17 +108,17 @@ class TestWin(QWidget):
 
     def timer_event3(self):
         global time
-        time = QTime(0, 0, 15)
+        time = QTime(0, 1, 0)
         self.timer = QTimer()
         self.timer.timeout.connect(self.timer3Event)
-        self.timer.start(1000)
+        self.timer.start(500)
 
     def timer3Event(self):
         global time
         time = time.addSecs(-1)
         self.text_timer.setText(time.toString("hh:mm:ss"))
-        self.timer.setFont(QFont("Times", 36, QFont.Bold))
-        self.timer.setStyleSheet("color: rgb(17, 33, 105)")
+        self.text_timer.setFont(QFont("Times", 36, QFont.Bold))
+        self.text_timer.setStyleSheet("color: rgb(17, 33, 105)")
         if time.toString("hh:mm:ss") == "00:00:00":
             self.timer.stop()
 

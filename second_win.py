@@ -1,9 +1,12 @@
 from PyQt5.QtCore import Qt, QTimer, QTime
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QLineEdit
 from PyQt5.QtGui import QFont
-from my_app import Experiment
 from final_win import FinalWin
 from instr import *
+
+
+class Experiment:
+    pass
 
 
 class TestWin(QWidget):

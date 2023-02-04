@@ -6,13 +6,16 @@ from instr import *
 
 
 class Experiment:
-    pass
+    def __init__(self, age, test1, test2, test3):
+        self.age = age
+        self.t1 = test1
+        self.t2 = test2
+        self.t3 = test3
 
 
 class TestWin(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Second Window")
         self.set_appear()
         self.initUI()
         self.connects()
@@ -30,15 +33,15 @@ class TestWin(QWidget):
         self.r_line = QVBoxLayout()
 
         # Создание кнопок и полей для ввода
-        self.btn_next = QPushButton("Отправить результаты")
+        self.btn_next = QPushButton(txt_sendresults)
         self.line_name = QLineEdit("Ф.И.О.")
         self.line_age = QLineEdit("0")
-        self.btn_test1 = QPushButton("Начать первый тест")
-        self.btn_test2 = QPushButton("Начать делать приседания")
-        self.btn_test3 = QPushButton("Начать финальный тест")
-        self.line_test1 = QLineEdit("0")
-        self.line_test2 = QLineEdit("0")
-        self.line_test3 = QLineEdit("0")
+        self.btn_test1 = QPushButton(txt_starttest1)
+        self.btn_test2 = QPushButton(txt_starttest2)
+        self.btn_test3 = QPushButton(txt_starttest3)
+        self.line_test1 = QLineEdit(txt_hinttest1)
+        self.line_test2 = QLineEdit(txt_hinttest2)
+        self.line_test3 = QLineEdit(txt_hinttest3)
         self.text_timer = QLabel("00:00:00")
         self.text_timer.setFont(QFont("Times", 36, QFont.Bold))
         self.text_timer.setStyleSheet("color: rgb(17, 33, 105)")
@@ -64,16 +67,14 @@ class TestWin(QWidget):
         # Третий тест
         self.l_line.addWidget(QLabel(txt_test3), alignment=Qt.AlignLeft)
         self.l_line.addWidget(self.btn_test3, alignment=Qt.AlignLeft)
-
-        # Ввод пользоватетем результатов
         self.l_line.addWidget(self.line_test2, alignment=Qt.AlignLeft)
         self.l_line.addWidget(self.line_test3, alignment=Qt.AlignLeft)
 
-        # Кнопка для перехода на следующее окно.
-        self.l_line.addWidget(self.btn_next, alignment=Qt.AlignCenter)
-
         # Таймер справа
         self.r_line.addWidget(self.text_timer, alignment=Qt.AlignCenter)
+
+        # Кнопка для перехода на следующее окно.
+        self.l_line.addWidget(self.btn_next, alignment=Qt.AlignCenter)
 
         # Объединение лейаутов (в горизонтальный)
         self.h_line.addLayout(self.l_line)
@@ -90,17 +91,17 @@ class TestWin(QWidget):
         global time
         time = QTime(0, 0, 15)
         self.timer = QTimer()
-        self.timer.timeout.connect(self.timer_updater)
+        self.timer.timeout.connect(self.timer_1_updater)
         self.timer.start(1000)
     
     def timer_event3(self):
         global time
         time = QTime(0, 1, 0)
         self.timer = QTimer()
-        self.timer.timeout.connect(self.timer_updater)
+        self.timer.timeout.connect(self.timer_3_updater)
         self.timer.start(1000)
     
-    def timer_updater(self):
+    def timer_1_updater(self):
         global time
         time = time.addSecs(-1)
         self.text_timer.setText(time.toString("hh:mm:ss"))
@@ -108,16 +109,28 @@ class TestWin(QWidget):
         self.text_timer.setStyleSheet("color: rgb(17, 33, 105)")
         if time.toString("hh:mm:ss") == "00:00:00":
             self.timer.stop()
+    
+    def timer_3_updater(self):
+        global time
+        time = time.addSecs(-1)
+        self.text_timer.setText(time.toString("hh:mm:ss"))
+        self.text_timer.setFont(QFont("Times", 36, QFont.Bold))
+        if time.toString("hh:mm:ss") == "00:00:00":
+            self.text_timer.setStyleSheet("color: rgb(17, 33, 105)")
+            self.timer.stop()
+        elif (45 <= int(time.toString("hh:mm:ss")[-2:]) <= 60) or (0 < int(time.toString("hh:mm:ss")[-2:]) <= 15):
+            self.text_timer.setStyleSheet("color: rgb(10, 255, 10)")
+        elif 15 < int(time.toString("hh:mm:ss")[-2:]) < 45:
+            self.text_timer.setStyleSheet("color: rgb(10, 10, 10)")
 
-    def timer_sits():
-        pass
+    def timer_sits(self):
+        pass  # Обработка приседаний
 
     def next_click(self):
         self.hide()
-        # self.exp = Experiment(self.line_age.text(), self.line_test1.text(),
-        #                       self.line_test2.text(), self.line_test3.text())
-        # self.fw = FinalWin(self.exp)  # Создание следующего окна
-        self.fw = FinalWin()
+        self.exp = Experiment(self.line_age.text(), self.line_test1.text(),
+                              self.line_test2.text(), self.line_test3.text())
+        self.fw = FinalWin(self.exp)  # Создание следующего окна
 
 
 def debug():

@@ -6,8 +6,11 @@ from instr import *
 
 
 class Experiment:
-    pass
-
+    def __init__(self, age, test1, test2, test3):
+       self.age = age
+       self.t1 = test1
+       self.t2 = test2
+       self.t3 = test3
 
 class TestWin(QWidget):
     def __init__(self):
@@ -92,6 +95,15 @@ class TestWin(QWidget):
         self.timer = QTimer()
         self.timer.timeout.connect(self.timer_updater)
         self.timer.start(1000)
+        
+    def timer_event2(self):
+       global time
+       time = QTime(0, 0, 30)
+       self.timer = QTimer()
+       self.timer.timeout.connect(self.timer2Event)
+       #одно приседание в 1.5 секунды
+       self.timer.start(1500)
+
     
     def timer_event3(self):
         global time
@@ -108,9 +120,6 @@ class TestWin(QWidget):
         self.text_timer.setStyleSheet("color: rgb(17, 33, 105)")
         if time.toString("hh:mm:ss") == "00:00:00":
             self.timer.stop()
-
-    def timer_sits():
-        pass
 
     def next_click(self):
         self.hide()

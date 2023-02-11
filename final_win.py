@@ -1,8 +1,16 @@
-from instr import*
+from instr import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
 class FinalWin(QWidget):
+    def __init__(self, exp):
+        """окно, в котором проводится опрос"""
+        super().__init__()
+        self.exp = exp
+        self.initUI()
+        self.set_appear()
+        self.show()
+
     def results(self):
        if self.exp.age < 7:
            self.index = 0
@@ -74,9 +82,8 @@ class FinalWin(QWidget):
         self.layout_line.addWidget(self.work_text, alignment = Qt.AlignCenter)        
         self.setLayout(self.layout_line)
 
-
-    ''' устанавливает, как будет выглядеть окно (надпись, размер, место) '''
     def set_appear(self):
+        ''' устанавливает, как будет выглядеть окно (надпись, размер, место) '''
         self.setWindowTitle(txt_finalwin)
         self.resize(win_width, win_height)
         self.move(win_x, win_y)

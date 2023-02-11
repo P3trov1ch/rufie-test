@@ -12,6 +12,7 @@ class Experiment:
        self.t2 = int(test2)
        self.t3 = int(test3)
 
+
 class TestWin(QWidget):
     def __init__(self):
         super().__init__()
@@ -34,7 +35,7 @@ class TestWin(QWidget):
         # Создание кнопок и полей для ввода
         self.btn_next = QPushButton(txt_sendresults)
         self.line_name = QLineEdit("Ф.И.О.")
-        self.line_age = QLineEdit(txt_hintage)
+        self.line_age = QLineEdit("0")
         self.btn_test1 = QPushButton(txt_starttest1)
         self.btn_test2 = QPushButton(txt_starttest2)
         self.btn_test3 = QPushButton(txt_starttest3)
@@ -51,7 +52,7 @@ class TestWin(QWidget):
         self.l_line.addWidget(self.line_name, alignment=Qt.AlignLeft)
 
         # Возраст пользователя
-        self.l_line.addWidget(QLabel("Возраст"), alignment=Qt.AlignLeft)
+        self.l_line.addWidget(QLabel(txt_hintage), alignment=Qt.AlignLeft)
         self.l_line.addWidget(self.line_age, alignment=Qt.AlignLeft)
 
         # Первый тест

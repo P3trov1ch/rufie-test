@@ -120,10 +120,10 @@ class TestWin(QWidget):
     def timer_2_updater(self):
         global time
         time = time.addSecs(-1)
-        self.text_timer.setText(time.toString("ss"))
+        self.text_timer.setText(time.toString("s"))
         self.text_timer.setFont(QFont("Times", 36, QFont.Bold))
         self.text_timer.setStyleSheet("color: rgb(17, 33, 105)")
-        if time.toString("ss") == "00":
+        if time.toString("s") == "0":
             self.timer.stop()
     
     def timer_3_updater(self):

@@ -7,11 +7,10 @@ from instr import *
 
 class Experiment:
     def __init__(self, age, test1, test2, test3):
-        self.age = age
-        self.t1 = test1
-        self.t2 = test2
-        self.t3 = test3
-
+       self.age = age
+       self.t1 = test1
+       self.t2 = test2
+       self.t3 = test3
 
 class TestWin(QWidget):
     def __init__(self):
@@ -93,6 +92,15 @@ class TestWin(QWidget):
         self.timer = QTimer()
         self.timer.timeout.connect(self.timer_1_updater)
         self.timer.start(1000)
+        
+    def timer_event2(self):
+       global time
+       time = QTime(0, 0, 30)
+       self.timer = QTimer()
+       self.timer.timeout.connect(self.timer2Event)
+       #одно приседание в 1.5 секунды
+       self.timer.start(1500)
+
     
     def timer_event3(self):
         global time
@@ -122,10 +130,7 @@ class TestWin(QWidget):
             self.text_timer.setStyleSheet("color: rgb(10, 255, 10)")
         elif 15 < int(time.toString("hh:mm:ss")[-2:]) < 45:
             self.text_timer.setStyleSheet("color: rgb(10, 10, 10)")
-
-    def timer_sits(self):
-        pass  # Обработка приседаний
-
+        
     def next_click(self):
         self.hide()
         self.exp = Experiment(self.line_age.text(), self.line_test1.text(),
